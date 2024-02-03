@@ -1,0 +1,5 @@
+# .gitignore
+*.tif
+*.tiff
+*.png
+# Add other raster file extensions as needed
