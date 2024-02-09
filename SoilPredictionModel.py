@@ -7,24 +7,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error
 import matplotlib.pyplot as plt
+from GetInputFiles import get_altum_terrain_rasters 
 
 # Step 1: Load TIFF files
-def load_tiff(file_path):
-    with rasterio.open(file_path) as src:
-        # Read the raster data
-        raster_data = src.read()
-        # Extract metadata
-        metadata = src.meta
-        # Extract transform function
-        transform = src.transform
-    return raster_data, metadata, transform
-
-# Example usage
-file_path_drone1 = 'SoilPredictionModel/terrain_rasters/Altum/Altum_Aspect.tif'
-file_path_drone2 = 'SoilPredictionModel/terrain_rasters/Altum/Altum_Convergence.tif'
-
-raster_data_drone1, metadata_drone1, transform_drone1 = load_tiff(file_path_drone1)
-raster_data_drone2, metadata_drone2, transform_drone2 = load_tiff(file_path_drone2)
+altum_terrain_rasters = get_altum_terrain_rasters()
 
 # Step 2: Load CSV file
 ground_truth_data = pd.read_csv("SoilPredictionModel/fieldSurveyData.csv")
