@@ -1,6 +1,5 @@
 import rasterio
 from GetCSVDataAsArray import get_ground_truth_array
-from GetInputFiles import get_paths_to_files
 import numpy as np
 
 ground_truth_data = get_ground_truth_array()

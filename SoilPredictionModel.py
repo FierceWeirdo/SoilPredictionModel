@@ -1,13 +1,8 @@
 import rasterio
-from rasterio.plot import show
-from rasterio.transform import rowcol
-import pandas as pd
 import numpy as np
 from sklearn.model_selection import KFold
-from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error
-import matplotlib.pyplot as plt
 from GetInputFiles import get_paths_to_files
 from GetFeaturesAndGroundTruth import get_all_raster_values_for_ground_truth, get_all_bare_ground_values_as_array
 
@@ -47,5 +42,4 @@ for train_index, test_index in kf.split(feature_values_array):
 
 # Calculate the mean of the mean absolute errors
 mean_mae = np.mean(mae_scores)
-print(Y_pred)
 print("Mean Absolute Error:", mean_mae)
