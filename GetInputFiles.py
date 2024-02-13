@@ -11,7 +11,9 @@ def load_tiff(file_path):
         metadata = src.meta
         # Extract transform function
         transform = src.transform
-    return raster_data, metadata, transform
+         # Extract transform function
+        raster_sample = src.sample
+    return raster_data, metadata, transform, raster_sample
 
 def get_altum_terrain_rasters():
     altum_rasters = {
@@ -39,10 +41,11 @@ def get_altum_terrain_rasters():
 
     altum_raster_data = {}
     for raster_name, raster_path in altum_rasters.items():
-        raster_data, raster_metadata, raster_transform = load_tiff(raster_path)
+        raster_data, raster_metadata, raster_transform, raster_sample = load_tiff(raster_path)
         altum_raster_data[raster_name + '_data'] = raster_data
         altum_raster_data[raster_name + '_metadata'] = raster_metadata
         altum_raster_data[raster_name + '_transform'] = raster_transform
+        altum_raster_data[raster_name + '_sample'] = raster_sample
 
     return altum_raster_data
 
