@@ -4,6 +4,7 @@ from rasterio.transform import rowcol
 
 def get_paths_to_files(name_of_files_needed):
     altum_terrain_rasters = [
+        'SoilPredictionModel/index_rasters/Altum/Altum_SAVI.tif',
         'SoilPredictionModel/terrain_rasters/Altum/Altum_Aspect.tif',
         'SoilPredictionModel/terrain_rasters/Altum/Altum_Convergence.tif',
         'SoilPredictionModel/terrain_rasters/Altum/Altum_DAH.tif',

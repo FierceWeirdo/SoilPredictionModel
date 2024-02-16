@@ -6,7 +6,7 @@ from sklearn.metrics import mean_absolute_error
 from GetInputFiles import get_paths_to_files
 from GetFeaturesAndGroundTruth import get_all_raster_values_for_ground_truth, get_all_bare_ground_values_as_array
 
-altum_terrain_paths = get_paths_to_files('m3m_terrain')
+altum_terrain_paths = get_paths_to_files('altum_terrain')
 feature_values_array = get_all_raster_values_for_ground_truth(altum_terrain_paths)
 bare_ground_values = get_all_bare_ground_values_as_array()
 
