@@ -1,94 +1,45 @@
 import rasterio
-from rasterio.plot import show
-from rasterio.transform import rowcol
-import pandas as pd
 import numpy as np
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import KFold
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error
-import matplotlib.pyplot as plt
+from GetInputFiles import get_paths_to_files
+from GetFeaturesAndGroundTruth import get_all_raster_values_for_ground_truth, get_all_bare_ground_values_as_array
 
-# Step 1: Load TIFF files
-def load_tiff(file_path):
-    with rasterio.open(file_path) as src:
-        # Read the raster data
-        raster_data = src.read()
-        # Extract metadata
-        metadata = src.meta
-        # Extract transform function
-        transform = src.transform
-    return raster_data, metadata, transform
+altum_terrain_paths = get_paths_to_files('altum_terrain')
+feature_values_array = get_all_raster_values_for_ground_truth(altum_terrain_paths)
+bare_ground_values = get_all_bare_ground_values_as_array()
 
-# Example usage
-file_path_drone1 = 'SoilPredictionModel/terrain_rasters/Altum/Altum_Aspect.tif'
-file_path_drone2 = 'SoilPredictionModel/terrain_rasters/Altum/Altum_Convergence.tif'
+print("Feature Values Array Shape:", feature_values_array.shape)
+print("Bare Ground Values Shape:", bare_ground_values.shape)
+num_folds = 5
+kf = KFold(n_splits=num_folds, shuffle=True, random_state=42)
 
-raster_data_drone1, metadata_drone1, transform_drone1 = load_tiff(file_path_drone1)
-raster_data_drone2, metadata_drone2, transform_drone2 = load_tiff(file_path_drone2)
-
-# Step 2: Load CSV file
-ground_truth_data = pd.read_csv("SoilPredictionModel/fieldSurveyData.csv")
-
-# Function to convert geographic coordinates to pixel coordinates
-def lat_lon_to_pixel(lat, lon, transform):
-    col, row = rowcol(transform, lon, lat)
-    return row, col
-
-# Step 3: Merge raster data with ground truth
-for index, row in ground_truth_data.iterrows():
-    lat, lon = row['LAT'], row['LNG']
-    ground_truth_value = row['BARE_GROUND']
+mae_scores = []
+for train_index, test_index in kf.split(feature_values_array):
+    X_train, X_test = feature_values_array[train_index], feature_values_array[test_index]
+    y_train, y_test = bare_ground_values[train_index], bare_ground_values[test_index]
     
-    # Convert geographic coordinates to pixel coordinates for drone 1
-    row_drone1, col_drone1 = lat_lon_to_pixel(lat, lon, transform_drone1)
-    # Convert geographic coordinates to pixel coordinates for drone 2
-    row_drone2, col_drone2 = lat_lon_to_pixel(lat, lon, transform_drone2)
+    # Initialize and fit the RandomForestRegressor
+    rf_regressor = RandomForestRegressor(
+        n_estimators=100,
+        max_depth=None,
+        min_samples_split=2,
+        min_samples_leaf=1
+    )
+    rf_regressor.fit(X_train, y_train)
 
-    # Check if pixel coordinates are within the raster bounds
-    if (0 <= row_drone1 < raster_data_drone1.shape[1]) and (0 <= col_drone1 < raster_data_drone1.shape[2]):
-        # Associate ground truth value with pixel in raster data for drone 1
-        ground_truth_data.at[index, 'raster1_value'] = raster_data_drone1[:, row_drone1, col_drone1]
-    else:
-        # Skip this pixel if ground truth is not available
-        ground_truth_data.at[index, 'raster1_value'] = np.nan
-    
-    if (0 <= row_drone2 < raster_data_drone2.shape[1]) and (0 <= col_drone2 < raster_data_drone2.shape[2]):
-        # Associate ground truth value with pixel in raster data for drone 2
-        ground_truth_data.at[index, 'raster2_value'] = raster_data_drone2[:, row_drone2, col_drone2]
-    else:
-        # Skip this pixel if ground truth is not available
-        ground_truth_data.at[index, 'raster2_value'] = np.nan
+    # Predict on the test set
+    y_pred = rf_regressor.predict(X_test)
+    print('Predictions:')
+    print(y_pred)
+    print('Truth:')
+    print(y_test)
 
+    # Calculate mean absolute error and append to the list
+    mae = mean_absolute_error(y_test, y_pred)
+    mae_scores.append(mae)
 
-# Example usage to visualize the merged data for drone 1
-plt.figure(figsize=(10, 6))
-
-# Plot raster data
-plt.imshow(raster_data_drone1[:, :, 0], cmap='gray')
-
-# Plot ground truth values as markers
-plt.scatter(row_drone1, col_drone1, color='red', marker='x', label='Ground Truth')
-
-plt.xlabel('Pixel Column')
-plt.ylabel('Pixel Row')
-plt.title('Visualization of Merged Data for Drone 1')
-plt.legend()
-plt.show()
-
-
-# Now ground_truth_data DataFrame contains ground truth values along with corresponding raster values
-
-# Step 4: Spatial cross-validation (implement k-fold spatial cross-validation)
-
-# Step 5: Prepare data for training
-# Extract features from TIFF files and ground truth values
-
-# Step 6: Train a Random Forest model
-X_train, X_test, y_train, y_test = train_test_split(features, ground_truth_values, test_size=0.2, random_state=42)
-model = RandomForestRegressor(n_estimators=100, random_state=42)
-model.fit(X_train, y_train)
-
-# Step 7: Evaluate the model
-predictions = model.predict(X_test)
-mae = mean_absolute_error(y_test, predictions)
-print("Mean Absolute Error:", mae)
+# Calculate the mean of the mean absolute errors
+mean_mae = np.mean(mae_scores)
+print("Mean Absolute Error:", mean_mae)
