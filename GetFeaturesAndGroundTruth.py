@@ -30,7 +30,7 @@ def get_all_raster_values_for_ground_truth(raster_paths_array):
             else:
                 values.append('nothing')
         feature_values_array.append(values)
-
+    
     return np.array(feature_values_array)
 
 def get_all_bare_ground_values_as_array():
