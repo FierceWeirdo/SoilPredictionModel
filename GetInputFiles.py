@@ -4,7 +4,9 @@ from rasterio.transform import rowcol
 
 def get_paths_to_files(name_of_files_needed):
     altum_terrain_rasters = [
+        'SoilPredictionModel/index_rasters/Altum/Altum_NDVI.tif',
         'SoilPredictionModel/index_rasters/Altum/Altum_SAVI.tif',
+        
         'SoilPredictionModel/terrain_rasters/Altum/Altum_Aspect.tif',
         'SoilPredictionModel/terrain_rasters/Altum/Altum_Convergence.tif',
         'SoilPredictionModel/terrain_rasters/Altum/Altum_DAH.tif',
@@ -93,6 +95,11 @@ def get_paths_to_files(name_of_files_needed):
         'SoilPredictionModel/index_rasters/M3M/M3M_TVI.tif',
         'SoilPredictionModel/index_rasters/M3M/M3M_WDVI.tif'
     ]
+
+    climate_altum = [
+        'SoilPredictionModel/climate_rasters/Altum/Altum_Year_2022Y_EMT.tif'
+    ]
+    
     match name_of_files_needed:
         case 'altum_terrain':
             return altum_terrain_rasters
@@ -102,6 +109,8 @@ def get_paths_to_files(name_of_files_needed):
             return altum_index_rasters
         case 'm3m_index':
             return m3m_index_rasters
+        case 'climate_altum':
+            return climate_altum
 
 # Step 1: Load TIFF files
 def load_tiff(file_path):
