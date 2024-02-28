@@ -47,4 +47,3 @@ This project involves building a machine learning model to predict the percentag
 
 - The trained model is saved as a joblib file (`trained_rf_model.joblib`).
 - Ensure that the input data format and preprocessing steps match those used during training.
-- For any issues or questions, please contact [maintainer_email@example.com].
