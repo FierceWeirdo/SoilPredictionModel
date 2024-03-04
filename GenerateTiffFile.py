@@ -13,6 +13,7 @@ altum_ndvi_savi_paths = get_paths_to_files('altum_ndvi_savi')
 paths_array = np.concatenate((altum_terrain_paths, altum_climate_paths, altum_ndvi_savi_paths))
 
 # Initialize an empty list to store features
+
 feature_values_list = []
 
 # Read only the first 100 features from each file
