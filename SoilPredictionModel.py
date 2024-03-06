@@ -41,7 +41,6 @@ rf_regressor = RandomForestRegressor(
 num_folds = 5
 kf = KFold(n_splits=num_folds, shuffle=True, random_state=42)
 
-
 # Perform K-fold cross-validation with selected features
 mae_scores_selected_features = []
 
@@ -57,6 +56,10 @@ for train_index, test_index in kf.split(feature_values_array):
     
     # Calculate mean absolute error and append to the list
     mae = mean_absolute_error(y_test, y_pred)
+    print('Prediction: ')
+    print(y_pred)
+    print('Truth: ')
+    print(y_test)
     mae_scores_selected_features.append(mae)
 
 # Calculate the mean of the mean absolute errors
