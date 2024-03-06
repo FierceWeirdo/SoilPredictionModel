@@ -51,7 +51,9 @@ You can install these dependencies via pip:
 - Make sure to replace the paths and filenames in the scripts with your actual file paths and names.
 - Ensure that the CSV file and raster files are properly formatted and accessible.
 - Adjust parameters such as the number of estimators, maximum depth, and minimum samples split according to your requirements for model training.
-- ## Note for Running Prediction Model
+
+
+## Note for Running Prediction Model
 
 To run the prediction model on a set of rasters, ensure that the following files are fed to the model (note any size of land can be used to run depending on your computation capabilities) in the same order (as that is how the model was trained):
 
