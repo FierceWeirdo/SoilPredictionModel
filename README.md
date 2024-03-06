@@ -1,4 +1,4 @@
-# Soil Prediction Model README
+# Soil Prediction Model
 
 This repository contains a set of Python scripts for soil prediction using raster data and machine learning techniques. The following sections provide an overview of the structure and usage of these scripts.
 
