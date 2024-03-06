@@ -1,49 +1,94 @@
-# Bare Ground Prediction Model with Random Forest and Recursive Feature Elimination
+# Soil Prediction Model README
 
-## Overview
+This repository contains a set of Python scripts for soil prediction using raster data and machine learning techniques. The following sections provide an overview of the structure and usage of these scripts.
 
-This project involves building a machine learning model to predict the percentage of bare ground over a certain set of land based on terrain files. The model uses the Random Forest algorithm, known for its robustness and versatility in handling regression tasks. Additionally, Recursive Feature Elimination (RFE) is employed for feature selection to enhance the model's performance.
+## Structure
+
+The repository is organized into several modules:
+
+1. **GetCSVDataAsArray**: Module to extract ground truth data from a CSV file containing soil data.
+2. **GetInputFiles**: Module to retrieve paths to input raster files required for soil prediction.
+3. **GetFeaturesAndGroundTruth**: Module to extract raster values for ground truth coordinates and bare ground values.
+4. **SoilPredictionModel**: Module to train a Random Forest Regressor model for soil prediction using extracted features and ground truth data.
+5. **GenerateTiffFile**: Module to generate a GeoTIFF file containing predicted soil probability.
 
 ## Usage
 
-1. **Dependencies**: Make sure you have the following dependencies installed:
-   - `numpy`
-   - `pandas`
-   - `scikit-learn`
-   - `joblib`
-   - `rasterio`
+To utilize the functionality provided by this repository, follow these steps:
 
-2. **Installation**: Clone this repository to your local machine.
+1. **Extract Ground Truth Data**:
+   - Use the `get_ground_truth_array()` function in the `GetCSVDataAsArray` module to extract ground truth data from a CSV file.
 
-3. **Data Preparation**:
-   - Ensure you have the required input data:
-     - Terrain data (`altum_terrain`)
-     - Climate data (`climate_altum`)
-     - Vegetation indices data (`altum_ndvi_savi`)
-   - The data should be in the correct format and accessible by the provided functions.
-   - Ensure you have ground truth data in a CSV format accessible by the `GetCSVDataAsArray` module.
+2. **Retrieve Input Raster Paths**:
+   - Use the `get_paths_to_files(name_of_files_needed)` function in the `GetInputFiles` module to retrieve paths to input raster files based on the required categories such as altitude, terrain, index, or climate.
 
-4. **Training**:
-   - Run the `train_model.py` script to train the Random Forest regression model.
-   - The trained model will be saved as `trained_rf_model.joblib`.
+3. **Extract Features and Ground Truth**:
+   - Use the functions in the `GetFeaturesAndGroundTruth` module to extract raster values for ground truth coordinates and bare ground values.
 
-5. **Prediction**:
-   - Load the trained model using `joblib.load('trained_rf_model.joblib')`.
-   - Prepare your new data using raster files as input, processed through the provided functions.
-   - Use the `predict()` method of the loaded model to make predictions on the new data.
+4. **Train Soil Prediction Model**:
+   - Use the `SoilPredictionModel` module to train a Random Forest Regressor model for soil prediction. Ensure that you have extracted features and ground truth data before training the model.
 
-## Files
+5. **Generate GeoTIFF File**:
+   - Use the `GenerateTiffFile` module to generate a GeoTIFF file containing predicted soil probability based on the trained model and input raster files.
 
-- `train_model.py`: Python script for training the Random Forest regression model.
-- `GetInputFiles.py`: Python script containing functions to get paths to input files.
-- `GetFeaturesAndGroundTruth.py`: Python script containing functions to extract features and ground truth data.
+## Dependencies
 
-## Data Handling
+Ensure you have the following dependencies installed:
 
-- **GetCSVDataAsArray.py**: Module to retrieve ground truth data from a CSV file and convert it into an array format.
-- **GetFeaturesAndGroundTruth.py**: Module to extract feature values and ground truth data from raster files.
+- pandas
+- numpy
+- rasterio
+- scikit-learn (sklearn)
+- joblib
 
-## Notes
+You can install these dependencies via pip:
 
-- The trained model is saved as a joblib file (`trained_rf_model.joblib`).
-- Ensure that the input data format and preprocessing steps match those used during training.
+`pip install pandas numpy rasterio scikit-learn joblib`
+
+
+## Note
+
+- Make sure to replace the paths and filenames in the scripts with your actual file paths and names.
+- Ensure that the CSV file and raster files are properly formatted and accessible.
+- Adjust parameters such as the number of estimators, maximum depth, and minimum samples split according to your requirements for model training.
+- ## Note for Running Prediction Model
+
+To run the prediction model on a set of rasters, ensure that the following files are fed to the model (note any size of land can be used to run depending on your computation capabilities) in the same order (as that is how the model was trained):
+
+- 'Altum_Aspect.tif'
+- 'Altum_Convergence.tif'
+- 'Altum_DAH.tif'
+- 'Altum_DEM.tif'
+- 'Altum_General_curvature.tif'
+- 'Altum_H_Overland_Dist.tif'
+- 'Altum_Insolation_Diffuse.tif'
+- 'Altum_Insolation_Direct.tif'
+- 'Altum_MRRTF.tif'
+- 'Altum_MRVBF.tif'
+- 'Altum_Openness_Neg.tif'
+- 'Altum_Openness_Pos.tif'
+- 'Altum_Overland_Dist.tif'
+- 'Altum_Slope.tif'
+- 'Altum_Total_curvature.tif'
+- 'Altum_TPI.tif'
+- 'Altum_TRI.tif'
+- 'Altum_TWI.tif'
+- 'Altum_V_Dist_to_cnetwork.tif'
+- 'Altum_V_Overland_Dist.tif'
+- 'Altum_Year_2022Y_EMT.tif'
+- 'Altum_NDVI.tif'
+- 'Altum_SAVI.tif'
+
+Ensure that the paths to these files are correctly provided when running the prediction model.
+
+
+
+## Contributors
+- **Rhythm Chauhan**
+  - [Email her](mailto:eyeamrhythm2003@gmail.com)
+
+- **Bir Inder Singh**
+  - [Email her](mailto:virkbunny13@gmail.com)
+
+- **Japkirat Singh**
+  - [Email her](mailto:japkirat66@gmail.com)
