@@ -87,10 +87,10 @@ Ensure that the paths to these files are correctly provided when running the pre
 
 ## Contributors
 - **Rhythm Chauhan**
-  - [Email her](mailto:eyeamrhythm2003@gmail.com)
+  - [Email Rhythm](mailto:eyeamrhythm2003@gmail.com)
 
 - **Bir Inder Singh**
-  - [Email her](mailto:virkbunny13@gmail.com)
+  - [Email Bir](mailto:virkbunny13@gmail.com)
 
 - **Japkirat Singh**
-  - [Email her](mailto:japkirat66@gmail.com)
+  - [Email Japkirat](mailto:japkirat66@gmail.com)
