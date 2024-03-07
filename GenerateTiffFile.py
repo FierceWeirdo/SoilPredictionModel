@@ -17,7 +17,7 @@ feature_values_list = []
 
 for file in paths_array:
     with rasterio.open(file) as src:
-        raster_data = src.read(1)
+        raster_data = src.read(1, window=((0, 1000), (17552, 18552)))
         feature_values_list.append(raster_data)
 
 # src.profile = {'driver': 'GTiff', 'dtype': 'float32', 'nodata': -99999.0, 'width': 18552, 'height': 10351, 'count': 1, 'crs': CRS.from_epsg(3005), 'transform': Affine(0.5, 0.0, 1358941.0,
@@ -39,12 +39,13 @@ feature_values_array_2d = feature_values_array.reshape(num_pixels, feature_value
 rf_model = joblib.load('trained_rf_model_with_all_features.joblib')
 # Use the model to predict the probability of soil for each pixel
 predicted_probabilities = rf_model.predict(feature_values_array_2d) / 100
+np.savetxt('array_data.txt', predicted_probabilities)
 
 # Reshape the predicted probabilities back to the original raster shape
 predicted_probabilities_raster = predicted_probabilities.reshape(feature_values_array.shape[0], feature_values_array.shape[1])
 
 # Save the predicted probabilities as a GeoTIFF file
-output_file = 'predicted_soil_probability_6.tif'
+output_file = 'predicted_soil_probability_5.tif'
 
 # Write the predicted probabilities to a new GeoTIFF file
 with rasterio.open(paths_array[0]) as src:  # Use the first file as a template
@@ -53,9 +54,9 @@ with rasterio.open(paths_array[0]) as src:  # Use the first file as a template
         dtype=rasterio.float32,
         count=1,
         compress='lzw',
-        width=18552,  # Set width according to the selected window
-        height=5351,
-        nodata=0.181251, 
+        width=1000,  # Set width according to the selected window
+        height=1000,
+        nodata=1.812514770040624945e-01, 
     )
     with rasterio.open(output_file, 'w', **profile) as dst:
         dst.write(predicted_probabilities_raster.astype(rasterio.float32), 1)
