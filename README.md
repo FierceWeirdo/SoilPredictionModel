@@ -45,15 +45,29 @@ You can install these dependencies via pip:
 
 `pip install pandas numpy rasterio scikit-learn joblib`
 
+## Creating and Using Your Own Prediction Model
 
-## Note
+You can use this code to create your own soil prediction model and save it for future use. Follow these steps:
 
-- Make sure to replace the paths and filenames in the scripts with your actual file paths and names.
-- Ensure that the CSV file and raster files are properly formatted and accessible.
-- Adjust parameters such as the number of estimators, maximum depth, and minimum samples split according to your requirements for model training.
+1. **Prepare Your Data**:
+   - Ensure you have your ground truth data in a CSV file formatted similarly to `fieldDataBCAlbers.csv`. Update the file path in the `GetCSVDataAsArray` module if needed.
+   - Organize your raster files into appropriate folders according to terrain, index, and climate categories. Update the file paths in the `GetInputFiles` module if needed.
 
+2. **Extract Features and Ground Truth**:
+   - Use the provided modules (`GetCSVDataAsArray`, `GetInputFiles`, and `GetFeaturesAndGroundTruth`) to extract features and ground truth data from your CSV file and raster files.
 
-## Note for Running Prediction Model
+3. **Train Your Model**:
+   - Utilize the `SoilPredictionModel` module to train your model. Adjust parameters such as the number of estimators, maximum depth, and minimum samples split based on your data and requirements.
+
+4. **Save Your Model**:
+   - Once your model is trained, save it using the `joblib.dump()` function provided in the `SoilPredictionModel` module. This will save your trained model as a binary file that can be loaded and used for predictions later.
+
+5. **Predict Soil Values**:
+   - Use the saved model to predict soil values for new raster data. Follow the instructions provided in the `GenerateTiffFile` module to generate predicted soil probability GeoTIFF files using your trained model.
+
+Remember to update file paths, parameters, and other configurations according to your specific data and requirements.
+
+## Note for Running Our Pre-Trained Prediction Model
 
 To run the prediction model on a set of rasters, ensure that the following files are fed to the model (note any size of land can be used to run depending on your computation capabilities) in the same order (as that is how the model was trained):
 
