@@ -86,11 +86,8 @@ Ensure that the paths to these files are correctly provided when running the pre
 
 
 ## Contributors
-- **Rhythm Chauhan**
-  - [Email Rhythm](mailto:eyeamrhythm2003@gmail.com)
+- **Rhythm Chauhan**: [Email Rhythm](mailto:eyeamrhythm2003@gmail.com)
 
-- **Bir Inder Singh**
-  - [Email Bir](mailto:virkbunny13@gmail.com)
+- **Bir Inder Singh**: [Email Bir](mailto:virkbunny13@gmail.com)
 
-- **Japkirat Singh**
-  - [Email Japkirat](mailto:japkirat66@gmail.com)
+- **Japkirat Singh**: [Email Japkirat](mailto:japkirat66@gmail.com)
