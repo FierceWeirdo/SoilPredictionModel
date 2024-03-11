@@ -31,7 +31,7 @@ num_pixels = feature_values_array.shape[0] * feature_values_array.shape[1]
 feature_values_array_2d = feature_values_array.reshape(num_pixels, feature_values_array.shape[2])
 
 # Load the trained machine learning model
-rf_model = joblib.load('trained_rf_model_with_all_features_4.joblib')
+rf_model = joblib.load('SoilPredictionModel/trained_rf_model_with_all_features.joblib')
 
 # Use the model to predict the probability of soil for each pixel
 predicted_probabilities = rf_model.predict(feature_values_array_2d) / 100
