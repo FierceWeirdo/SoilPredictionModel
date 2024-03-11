@@ -2,8 +2,8 @@ import rasterio
 import numpy as np
 
 # Open the two raster files
-with rasterio.open('predicted_soil_probability_5.tif') as src1:
-    with rasterio.open('predicted_soil_probability_6.tif') as src2:
+with rasterio.open('predicted_soil_probability_11.tif') as src1:
+    with rasterio.open('predicted_soil_probability_12.tif') as src2:
         
         # Get the metadata of the first raster
         meta = src1.meta

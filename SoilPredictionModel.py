@@ -20,7 +20,7 @@ bare_ground_values = get_all_bare_ground_values_as_array()
 feature_df = pd.DataFrame(feature_values_array)
 
 # Fill NaN values with the mean of each feature
-feature_df.fillna(feature_df.mean(), inplace=True)
+feature_df.fillna(-99999.0, inplace=True)
 
 # Convert back to numpy array
 feature_values_array = feature_df.values
@@ -30,42 +30,56 @@ print("Bare Ground Values Shape:", bare_ground_values.shape)
 
 # Initialize RandomForestRegressor
 rf_regressor = RandomForestRegressor(
-    n_estimators = 1000,
-    max_depth = 15,
-    min_samples_split = 6,
-    min_samples_leaf = 3,
-    random_state=44
+    n_estimators = 500,
+    max_depth = None,
+    min_samples_split = 8,
+    min_samples_leaf = 4,
+    random_state=45
 )
 
 # Initialize KFold
 num_folds = 5
 kf = KFold(n_splits=num_folds, shuffle=True, random_state=42)
 
-# Perform K-fold cross-validation with selected features
+# Initialize RFECV
+rfecv = RFECV(estimator=rf_regressor, cv=kf)
+
+# Perform K-fold cross-validation with recursive feature elimination
 mae_scores_selected_features = []
 
 for train_index, test_index in kf.split(feature_values_array):
     X_train_selected, X_test_selected = feature_values_array[train_index], feature_values_array[test_index]
     y_train, y_test = bare_ground_values[train_index], bare_ground_values[test_index]
     
-    # Initialize and fit the RandomForestRegressor
-    rf_regressor.fit(X_train_selected, y_train)
+    # Fit RFECV on training data
+    rfecv.fit(X_train_selected, y_train)
+
+    # Get the boolean array indicating selected features
+    selected_features_mask = rfecv.support_
+
+    # Get the names of the features
+    feature_names = feature_df.columns
+
+    # Get the selected features
+    selected_features = feature_names[selected_features_mask]
+
+    print("Selected Features:", selected_features)
+
+    # Train using only selected features
+    rf_regressor.fit(X_train_selected[:, selected_features_mask], y_train)
 
     # Predict on the test set
-    y_pred = rf_regressor.predict(X_test_selected)
+    y_pred = rf_regressor.predict(X_test_selected[:, selected_features_mask])
     
     # Calculate mean absolute error and append to the list
     mae = mean_absolute_error(y_test, y_pred)
-    print('Prediction: ')
-    print(y_pred)
-    print('Truth: ')
-    print(y_test)
     mae_scores_selected_features.append(mae)
 
 # Calculate the mean of the mean absolute errors
 mean_mae_selected_features = np.mean(mae_scores_selected_features)
 print("Mean Absolute Error with selected features:", mean_mae_selected_features)
 
-model_file_path = 'trained_rf_model_with_all_features.joblib'
+# Save trained model
+model_file_path = 'trained_rf_model_with_selected_features.joblib'
 joblib.dump(rf_regressor, model_file_path)
 print(f"Trained model saved to {model_file_path}")

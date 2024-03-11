@@ -13,12 +13,15 @@ def get_paths_to_files(name_of_files_needed):
         'SoilPredictionModel/terrain_rasters/Altum/Altum_Insolation_Diffuse.tif',
         'SoilPredictionModel/terrain_rasters/Altum/Altum_Insolation_Direct.tif',
         'SoilPredictionModel/terrain_rasters/Altum/Altum_MRRTF.tif',
+
         'SoilPredictionModel/terrain_rasters/Altum/Altum_MRVBF.tif',
-        'SoilPredictionModel/terrain_rasters/Altum/Altum_Openness_Neg.tif',
-        'SoilPredictionModel/terrain_rasters/Altum/Altum_Openness_Pos.tif',
+        # 'SoilPredictionModel/terrain_rasters/Altum/Altum_Openness_Neg.tif',
+        # 'SoilPredictionModel/terrain_rasters/Altum/Altum_Openness_Pos.tif',
+        
         'SoilPredictionModel/terrain_rasters/Altum/Altum_Overland_Dist.tif',
         'SoilPredictionModel/terrain_rasters/Altum/Altum_Slope.tif',
         'SoilPredictionModel/terrain_rasters/Altum/Altum_Total_curvature.tif',
+        
         'SoilPredictionModel/terrain_rasters/Altum/Altum_TPI.tif',
         'SoilPredictionModel/terrain_rasters/Altum/Altum_TRI.tif',
         'SoilPredictionModel/terrain_rasters/Altum/Altum_TWI.tif',
