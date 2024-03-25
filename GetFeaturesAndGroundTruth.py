@@ -3,15 +3,14 @@ from GetCSVDataAsArray import get_ground_truth_array
 import numpy as np
 
 ground_truth_data = get_ground_truth_array()
-
+# Getting all values from ground truth
 def get_all_raster_values_for_ground_truth(raster_paths_array):
     coord_pairs = []
 
-    # Extracting coordinates from ground_truth_data
+    # Ground truth co-ordinates
     for element in ground_truth_data:
         coord_pairs.append(element[:2])
 
-    # Storing sampled values for each raster
     all_sampled_values = []
 
     for raster_file_path in raster_paths_array:
@@ -32,7 +31,7 @@ def get_all_raster_values_for_ground_truth(raster_paths_array):
         feature_values_array.append(values)
     
     return np.array(feature_values_array)
-
+# Getting all ground truth values in array
 def get_all_bare_ground_values_as_array():
     bare_ground_values = []
     for element in ground_truth_data:

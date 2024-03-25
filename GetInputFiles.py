@@ -1,7 +1,7 @@
 import rasterio
 from rasterio.plot import show
 from rasterio.transform import rowcol
-
+# Getting files needed for model
 def get_paths_to_files(name_of_files_needed):
     altum_terrain_rasters = [
         'SoilPredictionModel/terrain_rasters/Altum/Altum_Aspect.tif',
