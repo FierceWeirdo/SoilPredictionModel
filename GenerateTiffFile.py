@@ -28,8 +28,10 @@ feature_values_array = np.stack(feature_values_list, axis=-1)
 num_pixels = feature_values_array.shape[0] * feature_values_array.shape[1]
 feature_values_array_2d = feature_values_array.reshape(num_pixels, feature_values_array.shape[2])
 
+
 #loading the trained model
 rf_model = joblib.load('trained_rf_model_with_all_features_4.joblib')
+
 
 # Predicting the probability
 predicted_probabilities = rf_model.predict(feature_values_array_2d) / 100
