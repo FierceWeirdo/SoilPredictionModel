@@ -1,4 +1,4 @@
-import rasterio
+import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
 from GetInputFiles import get_paths_to_files, load_tiff
@@ -58,4 +58,4 @@ with rasterio.open(paths_array[0]) as src:
     with rasterio.open(output_file, 'w', **profile) as dst:
         dst.write(predicted_probabilities_raster.astype(rasterio.float32), 1)
 
-print("Predicted soil probability GeoTIFF file saved successfully.")
+print("Raster file created successfully.")
