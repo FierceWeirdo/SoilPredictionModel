@@ -2,5 +2,5 @@
 *.tif
 *.tiff
 *.png
-*.xml
+*.tif.aux.xml
 # Add other raster file extensions as needed
