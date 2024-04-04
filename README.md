@@ -81,8 +81,6 @@ To run the prediction model on a set of rasters, ensure that the following files
 - 'Altum_Insolation_Direct.tif'
 - 'Altum_MRRTF.tif'
 - 'Altum_MRVBF.tif'
-- 'Altum_Openness_Neg.tif'
-- 'Altum_Openness_Pos.tif'
 - 'Altum_Overland_Dist.tif'
 - 'Altum_Slope.tif'
 - 'Altum_Total_curvature.tif'
