@@ -1,5 +1,6 @@
-# Getting data from csv file into an array
 import pandas as pd
+
+# Getting data from csv file into an array
 
 def get_ground_truth_array():
     csv_file = "SoilPredictionModel/fieldDataBCAlbers.csv" #path to csv file

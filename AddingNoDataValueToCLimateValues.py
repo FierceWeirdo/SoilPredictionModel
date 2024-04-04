@@ -1,3 +1,6 @@
+#This file is no longer needed as it was used to add no data values to a CSV with just the data points
+#This is not a requirement because we are converting CSVs to raster in the final model training setup
+
 import pandas as pd
 
 # Read both CSV files

@@ -7,6 +7,8 @@ from sklearn.metrics import mean_absolute_error
 from GetInputFiles import get_paths_to_files, load_tiff
 from GetFeaturesAndGroundTruth import get_all_raster_values_for_ground_truth, get_all_bare_ground_values_as_array
 
+#The training of the model takes place here
+
 altum_terrain_paths = get_paths_to_files('altum_terrain')
 climate_2034 = get_paths_to_files('climate_2034')
 

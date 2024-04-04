@@ -4,8 +4,9 @@ import rasterio
 from rasterio.transform import from_origin, Affine 
 from rasterio.enums import Resampling
 from rasterio.crs import CRS
-
 import os
+
+# Used after we read data from ClimateBC to generate rasters so it can be used for training
 
 def convert_csv_to_tiff(csv_file, tiff_file):
     # Read CSV
@@ -14,7 +15,7 @@ def convert_csv_to_tiff(csv_file, tiff_file):
     mats = []
     with open(csv_file, 'r') as file:
         reader = csv.reader(file)
-        next(reader)  # Skip header if exists
+        next(reader)
         for row in reader:
             eastings.append(float(row[0]))
             northings.append(float(row[1]))

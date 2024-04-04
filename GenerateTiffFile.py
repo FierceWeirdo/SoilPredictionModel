@@ -5,6 +5,8 @@ from GetInputFiles import get_paths_to_files, load_tiff
 import joblib
 import rasterio
 
+# Once a model is trained use this to create a raster
+
 altum_terrain_paths = get_paths_to_files('altum_terrain')
 climate_2034= get_paths_to_files('climate_2034')
 

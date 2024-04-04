@@ -5,7 +5,7 @@ import numpy as np
 with rasterio.open('future_2034_first_half.tif') as src1:
     with rasterio.open('future_2034_second_half.tif') as src2:
         
-        meta = src1.meta #get meta data from source 1
+        meta = src1.meta
         
         new_height = src1.height + src2.height
         new_width = max(src1.width, src2.width)

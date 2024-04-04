@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import rasterio
 
+# Used to visualize changes in the three files. Still in work
+
 # Load the first TIFF file
 tiff_file_1 = 'Altum_Soil_Prob.tif'
 
