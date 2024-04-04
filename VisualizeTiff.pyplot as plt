@@ -1,0 +1,17 @@
+import matplotlib.pyplot as plt
+import rasterio
+
+# Load TIFF file
+tiff_file = 'Altum_Soil_Prob.tif'
+
+# Open TIFF file
+with rasterio.open(tiff_file) as src:
+    data = src.read(1)
+
+# Plotting
+plt.figure(figsize=(10, 5))
+plt.plot(data.flatten())
+plt.xlabel('Index')
+plt.ylabel('Value')
+plt.title('Line Chart of TIFF File')
+plt.show()

@@ -56,9 +56,9 @@ def convert_csv_to_tiff(csv_file, tiff_file):
         dst.write(data, 1)
 
 
-output_folder = 'output/'
+output_folder = 'ClimateCSV/2034/'
 for filename in os.listdir(output_folder):
     if filename.endswith(".csv"):
         csv_file = os.path.join(output_folder, filename)
-        tiff_file = os.path.splitext(csv_file)[0] + ".tif" 
+        tiff_file = os.path.splitext(csv_file)[0] + ".tif"
         convert_csv_to_tiff(csv_file, tiff_file)
