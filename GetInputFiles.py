@@ -2,6 +2,9 @@ import rasterio
 from rasterio.plot import show
 from rasterio.transform import rowcol
 # Getting files needed for model
+
+#This was the centre to access all file paths for the project
+
 def get_paths_to_files(name_of_files_needed):
     altum_terrain_rasters = [
         'SoilPredictionModel/terrain_rasters/Altum/Altum_Aspect.tif',
@@ -102,32 +105,43 @@ def get_paths_to_files(name_of_files_needed):
     ]
 
     climate_2029 = [
-        'SoilPredictionModel/future_rasters/2029/MAT_2029.tif',
-        'SoilPredictionModel/future_rasters/2029/MWMT_2029.tif',
-        'SoilPredictionModel/future_rasters/2029/MCMT_2029.tif',
-        'SoilPredictionModel/future_rasters/2029/TD_2029.tif',
+        # 'SoilPredictionModel/future_rasters/2029/MAT_2029.tif',
+        # 'SoilPredictionModel/future_rasters/2029/MWMT_2029.tif',
+        # 'SoilPredictionModel/future_rasters/2029/MCMT_2029.tif',
+        # 'SoilPredictionModel/future_rasters/2029/TD_2029.tif',
         'SoilPredictionModel/future_rasters/2029/MAP_2029.tif',
-        'SoilPredictionModel/future_rasters/2029/MSP_2029.tif',
+        # 'SoilPredictionModel/future_rasters/2029/MSP_2029.tif',
         'SoilPredictionModel/future_rasters/2029/AHM_2029.tif',
         'SoilPredictionModel/future_rasters/2029/SHM_2029.tif',
         'SoilPredictionModel/future_rasters/2029/DD_0_2029.tif',
-        'SoilPredictionModel/future_rasters/2029/DD5_2029.tif',
+        # 'SoilPredictionModel/future_rasters/2029/DD5_2029.tif',
         'SoilPredictionModel/future_rasters/2029/DD_18_2029.tif',
-        'SoilPredictionModel/future_rasters/2029/DD18_2029.tif',
-        'SoilPredictionModel/future_rasters/2029/NFFD_2029.tif',
-        'SoilPredictionModel/future_rasters/2029/bFFP_2029.tif',
-        'SoilPredictionModel/future_rasters/2029/eFFP_2029.tif',
-        'SoilPredictionModel/future_rasters/2029/FFP_2029.tif',
-        'SoilPredictionModel/future_rasters/2029/PAS_2029.tif',
-        'SoilPredictionModel/future_rasters/2029/EMT_2029.tif',
-        'SoilPredictionModel/future_rasters/2029/EXT_2029.tif',
-        'SoilPredictionModel/future_rasters/2029/MAR_2029.tif',
-        'SoilPredictionModel/future_rasters/2029/Eref_2029.tif',
-        'SoilPredictionModel/future_rasters/2029/CMD_2029.tif',
-        'SoilPredictionModel/future_rasters/2029/RH_2029.tif',
+        # 'SoilPredictionModel/future_rasters/2029/DD18_2029.tif',
+        # 'SoilPredictionModel/future_rasters/2029/NFFD_2029.tif',
+        # 'SoilPredictionModel/future_rasters/2029/bFFP_2029.tif',
+        # 'SoilPredictionModel/future_rasters/2029/eFFP_2029.tif',
+        # 'SoilPredictionModel/future_rasters/2029/FFP_2029.tif',
+        # 'SoilPredictionModel/future_rasters/2029/PAS_2029.tif',
+        # 'SoilPredictionModel/future_rasters/2029/EMT_2029.tif',
+        # 'SoilPredictionModel/future_rasters/2029/EXT_2029.tif',
+        # 'SoilPredictionModel/future_rasters/2029/MAR_2029.tif',
+        #  'SoilPredictionModel/future_rasters/2029/Eref_2029.tif',
+        # # 'SoilPredictionModel/future_rasters/2029/CMD_2029.tif',
+        #  'SoilPredictionModel/future_rasters/2029/RH_2029.tif',
         'SoilPredictionModel/future_rasters/2029/CMI_2029.tif',
         'SoilPredictionModel/future_rasters/2029/DD1040_2029.tif'
     ]
+
+    climate_2034 = [
+        'SoilPredictionModel/future_rasters/2034/MAP_2034.tif',
+        'SoilPredictionModel/future_rasters/2034/AHM_2034.tif',
+        'SoilPredictionModel/future_rasters/2034/SHM_2034.tif',
+        'SoilPredictionModel/future_rasters/2034/DD_0_2034.tif',
+        'SoilPredictionModel/future_rasters/2034/DD_18_2034.tif',
+        'SoilPredictionModel/future_rasters/2034/CMI_2034.tif',
+        'SoilPredictionModel/future_rasters/2034/DD1040_2034.tif'
+    ]
+
 
     climate_altum = [
         'SoilPredictionModel/climate_rasters/Altum/Altum_Year_2022Y_EMT.tif'
@@ -148,6 +162,8 @@ def get_paths_to_files(name_of_files_needed):
             return altum_ndvi_savi
         case 'climate_2029':
             return climate_2029
+        case 'climate_2034':
+            return climate_2034
 
 def load_tiff(file_path):
     with rasterio.open(file_path) as src:

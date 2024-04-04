@@ -2,8 +2,10 @@ import pandas as pd
 import numpy as np
 import pyproj
 
+#After getting data from ClimateBC, use this file to convert the Lat Long to BC Albers to match with all existing data
+
 # Read the CSV file
-df = pd.read_csv('Altum_DEM_CSV_Remaining_Rows_13GCMs_ensemble_ssp126_2029Y.csv')
+df = pd.read_csv('Altum_DEM_CSV_Final_13GCMs_ensemble_ssp126_2034Y.csv')
 print('Done reading CSV.')
 
 # Define the projection transformation from EPSG:4326 (WGS84 - Lat/Lng) to EPSG:3005 (BC Albers)
@@ -21,7 +23,6 @@ y = np.round(y, decimals=2)
 df['Easting'] = x
 df['Northing'] = y
 print('Done updating Easting Northing Values in CSV.')
-# Optionally, you may drop the original Latitude and Longitude columns
 df.drop(columns=['Latitude', 'Longitude', 'Elevation'], inplace=True)
 
 # Reorder columns putting Easting and Northing first
@@ -30,5 +31,5 @@ cols = ['Easting', 'Northing'] + [col for col in cols if col not in ['Easting', 
 df = df[cols]
 
 # Write the updated DataFrame to a new CSV file
-df.to_csv('Climate_vars_2029_first_half.csv', index=False)
+df.to_csv('Climate_Vars_2034.csv', index=False)
 print('Done creating new CSV.')

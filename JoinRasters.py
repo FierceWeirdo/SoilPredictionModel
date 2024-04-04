@@ -2,10 +2,10 @@ import rasterio
 import numpy as np
 
 # Combining raster files
-with rasterio.open('predicted_soil_probability_11.tif') as src1:
-    with rasterio.open('predicted_soil_probability_12.tif') as src2:
+with rasterio.open('future_2034_first_half.tif') as src1:
+    with rasterio.open('future_2034_second_half.tif') as src2:
         
-        meta = src1.meta #get meta data from source 1
+        meta = src1.meta
         
         new_height = src1.height + src2.height
         new_width = max(src1.width, src2.width)
@@ -21,6 +21,6 @@ with rasterio.open('predicted_soil_probability_11.tif') as src1:
         meta.update(height=new_height, width=new_width)
         
         #Creating new raster file
-        with rasterio.open('Altum_Soil_Prob.tif', 'w', **meta) as dst:
+        with rasterio.open('Future_Prediction_2034.tif', 'w', **meta) as dst:
          
             dst.write(combined_data, 1)

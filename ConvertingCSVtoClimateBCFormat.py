@@ -23,8 +23,9 @@ df['Long'], df['Lat'] = pyproj.transform(bc_albers, wgs84, df['easting'].values,
 # Rename elevation column to 'Elev'
 df.rename(columns={'elevation': 'Elev'}, inplace=True)
 
-# # Remove rows where elevation is -99999
-# df = df[df['Elev'] != -99999]
+# Remove rows where elevation is -99999
+# This was done to slow the data load on ClimateBC since now t only has to run about 24 million points.
+df = df[df['Elev'] != -99999]
 
 # Reorder columns
 df = df[['ID1', 'ID2', 'Lat', 'Long', 'Elev']]

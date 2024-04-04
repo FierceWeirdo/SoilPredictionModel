@@ -7,11 +7,12 @@ from sklearn.metrics import mean_absolute_error
 from GetInputFiles import get_paths_to_files, load_tiff
 from GetFeaturesAndGroundTruth import get_all_raster_values_for_ground_truth, get_all_bare_ground_values_as_array
 
-altum_terrain_paths = get_paths_to_files('altum_terrain')
-altum_ndvi_savi_paths = get_paths_to_files('altum_ndvi_savi')
-climate_2029 = get_paths_to_files('climate_2029')
+#The training of the model takes place here
 
-paths_array = np.concatenate((altum_terrain_paths, altum_ndvi_savi_paths, climate_2029))
+altum_terrain_paths = get_paths_to_files('altum_terrain')
+climate_2034 = get_paths_to_files('climate_2034')
+
+paths_array = np.concatenate((altum_terrain_paths, climate_2034))
 feature_values_array = get_all_raster_values_for_ground_truth(paths_array)
 bare_ground_values = get_all_bare_ground_values_as_array()
 
@@ -60,6 +61,6 @@ mean_mae = np.mean(mae_scores)
 print("Mean Absolute Error:", mean_mae)
 
 # Save trained model
-model_file_path = 'trained_rf_model_future_2029.joblib'
+model_file_path = 'trained_rf_model_future_2034.joblib'
 joblib.dump(rf_regressor, model_file_path)
 print(f"Trained model saved to {model_file_path}")
