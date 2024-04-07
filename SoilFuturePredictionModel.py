@@ -10,7 +10,7 @@ from GetFeaturesAndGroundTruth import get_all_raster_values_for_ground_truth, ge
 #The training of the model takes place here
 
 altum_terrain_paths = get_paths_to_files('altum_terrain')
-climate_2034 = get_paths_to_files('climate_2034')
+climate_2034 = get_paths_to_files('climate_2029')
 
 paths_array = np.concatenate((altum_terrain_paths, climate_2034))
 feature_values_array = get_all_raster_values_for_ground_truth(paths_array)
@@ -61,6 +61,6 @@ mean_mae = np.mean(mae_scores)
 print("Mean Absolute Error:", mean_mae)
 
 # Save trained model
-model_file_path = 'trained_rf_model_future_2034.joblib'
+model_file_path = 'trained_rf_model_future_2029.joblib'
 joblib.dump(rf_regressor, model_file_path)
 print(f"Trained model saved to {model_file_path}")
